@@ -24,6 +24,7 @@ configuration Sample_xWebsite_StopDefault
             Ensure          = 'Present'
             Name            = 'Default Web Site'
             State           = 'Stopped'
+            ServerAutoStart = $false
             PhysicalPath    = 'C:\inetpub\wwwroot'
             DependsOn       = '[WindowsFeature]IIS'
         }

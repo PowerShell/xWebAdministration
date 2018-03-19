@@ -46,6 +46,7 @@ configuration Sample_xWebsite_NewWebsite
             Ensure          = 'Present'
             Name            = 'Default Web Site'
             State           = 'Stopped'
+            ServerAutoStart = $false
             PhysicalPath    = 'C:\inetpub\wwwroot'
             DependsOn       = '[WindowsFeature]IIS'
         }

@@ -26,6 +26,7 @@ Configuration Sample_xWebsite_FromConfigurationData
             Ensure          = 'Present'
             Name            = 'Default Web Site'
             State           = 'Stopped'
+            ServerAutoStart = $false
             PhysicalPath    = $Node.DefaultWebSitePath
             DependsOn       = '[WindowsFeature]IIS'
         }
