@@ -241,7 +241,6 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ### Unreleased
 
-
 * **xWebsite** - Added ServerAutoStart (controls website autostart) and changed documentation for ServiceAutoStartEnabled (controls application auto-initialization). Fixes #325.
 
 ### 1.19.0.0

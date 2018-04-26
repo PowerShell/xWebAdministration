@@ -68,6 +68,7 @@ configuration MSFT_xWebsite_Present_Started
             ServiceAutoStartEnabled = $Node.ServiceAutoStartEnabled
             ServiceAutoStartProvider = $Node.ServiceAutoStartProvider
             State = 'Started'
+            ServerAutoStart = $true
         }
     }
 }
@@ -141,6 +142,7 @@ configuration MSFT_xWebsite_Present_Stopped
             ServiceAutoStartEnabled = $Node.ServiceAutoStartEnabled
             ServiceAutoStartProvider = $Node.ServiceAutoStartProvider
             State = 'Stopped'
+            ServerAutoStart = $false
         }
     }
 }

@@ -87,6 +87,7 @@ try
             $result.Name             | Should Be $dscConfig.AllNodes.Website
             $result.PhysicalPath     | Should Be $dscConfig.AllNodes.PhysicalPath
             $result.State            | Should Be 'Started'
+            $result.ServerAutoStart  | Should Be $true
             $result.ApplicationPool  | Should Be $dscConfig.AllNodes.ApplicationPool
             $result.EnabledProtocols | Should Be $dscConfig.AllNodes.EnabledProtocols
             
@@ -159,6 +160,7 @@ try
             $result.Name             | Should Be $dscConfig.AllNodes.Website
             $result.PhysicalPath     | Should Be $dscConfig.AllNodes.PhysicalPath
             $result.State            | Should Be 'Stopped'
+            $result.ServerAutoStart  | Should Be $false
             $result.ApplicationPool  | Should Be $dscConfig.AllNodes.ApplicationPool
             $result.EnabledProtocols | Should Be $dscConfig.AllNodes.EnabledProtocols
             

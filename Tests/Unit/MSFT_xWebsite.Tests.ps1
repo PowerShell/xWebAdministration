@@ -94,6 +94,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\NonExistent'
                 State                = 'Started'
+                ServerAutoStart      = $true
                 ApplicationPool      = 'MockPool'
                 Bindings             = @{Collection = @($MockWebBinding)}
                 EnabledProtocols     = 'http'
@@ -189,6 +190,10 @@ try
                     $Result.State | Should Be $MockWebsite.State
                 }
 
+                It 'should return ServerAutoStart' {
+                    $Result.ServerAutoStart | Should Be $MockWebsite.ServerAutoStart
+                }
+
                 It 'should return ApplicationPool' {
                     $Result.ApplicationPool | Should Be $MockWebsite.ApplicationPool
                 }
@@ -281,6 +286,7 @@ try
                 Name                     = 'MockName'
                 PhysicalPath             = 'C:\NonExistent'
                 State                    = 'Started'
+                ServerAutoStart          = $true
                 ApplicationPool          = 'MockPool'
                 BindingInfo              = $MockBindingInfo
                 DefaultPage              = @('index.html')
@@ -327,6 +333,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\NonExistent'
                 State                = 'Started'
+                ServerAutoStart      = $true
                 ApplicationPool      = 'MockPool'
                 Bindings             = @{ Collection = @($MockWebBinding) }
                 EnabledProtocols     = 'http'
@@ -370,6 +377,20 @@ try
                             -Name $MockParameters.Name `
                             -PhysicalPath $MockParameters.PhysicalPath `
                             -State 'Stopped' `
+                            -Verbose:$VerbosePreference
+
+                It 'should return False' {
+                    $Result | Should Be $false
+                }
+            }
+
+            Context 'Check ServerAutoStart is different' {
+                Mock -CommandName Get-Website -MockWith {return $MockWebsite}
+
+                $Result = Test-TargetResource -Ensure $MockParameters.Ensure `
+                            -Name $MockParameters.Name `
+                            -PhysicalPath $MockParameters.PhysicalPath `
+                            -ServerAutoStart  $false `
                             -Verbose:$VerbosePreference
 
                 It 'should return False' {
@@ -684,6 +705,7 @@ try
                     Name                 = 'MockName'
                     PhysicalPath         = 'C:\NonExistent'
                     State                = 'Started'
+                    ServerAutoStart      = $true
                     ApplicationPool      = 'MockPool'
                     Bindings             = @{Collection = @($MockWebBinding)}
                     EnabledProtocols     = 'http'
@@ -764,6 +786,7 @@ try
                 Name                     = 'MockName'
                 PhysicalPath             = 'C:\NonExistent'
                 State                    = 'Started'
+                ServerAutoStart          = $true
                 ApplicationPool          = 'MockPool'
                 BindingInfo              = $MockBindingInfo
                 DefaultPage              = @('index.html')
@@ -813,6 +836,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\Different'
                 State                = 'Stopped'
+                ServerAutoStart      = $false
                 ApplicationPool      = 'MockPoolDifferent'
                 Bindings             = @{ Collection = @($MockWebBinding) }
                 EnabledProtocols     = 'http'
@@ -1045,6 +1069,7 @@ try
                     Name                     = 'MockName'
                     PhysicalPath             = 'C:\NonExistent'
                     State                    = 'Started'
+                    ServerAutoStart          = $true
                     ApplicationPool          = 'MockPool'
                     Bindings                 = @{Collection = @($MockWebBinding)}
                     EnabledProtocols         = 'http'
@@ -1128,6 +1153,7 @@ try
                     Name                 = 'MockName'
                     PhysicalPath         = 'C:\NonExistent'
                     State                = 'Started'
+                    ServerAutoStart      = $true
                     ApplicationPool      = 'MockPool'
                     Bindings             = @{Collection = @($MockWebBinding)}
                     EnabledProtocols     = 'http'
@@ -1208,6 +1234,7 @@ try
                     Name                 = 'MockName'
                     PhysicalPath         = 'C:\NonExistent'
                     State                = 'Started'
+                    ServerAutoStart      = $true
                     ApplicationPool      = 'MockPool'
                     Bindings             = @{Collection = @($MockWebBinding)}
                     EnabledProtocols     = 'http'
@@ -1288,6 +1315,7 @@ try
                     Name                     = 'MockName'
                     PhysicalPath             = 'C:\NonExistent'
                     State                    = 'Started'
+                    ServerAutoStart          = $true
                     ApplicationPool          = 'MockPool'
                     Bindings                 = @{Collection = @($MockWebBinding)}
                     EnabledProtocols         = 'http'
@@ -2332,6 +2360,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\NonExistent'
                 State                = 'Started'
+                ServerAutoStart      = $true
                 ApplicationPool      = 'MockPool'
                 Bindings             = @{Collection = @($MockWebBinding)}
                 EnabledProtocols     = 'http'
@@ -2421,6 +2450,7 @@ try
                     Name                 = 'MockName'
                     PhysicalPath         = 'C:\NonExistent'
                     State                = 'Started'
+                    ServerAutoStart      = $true
                     ApplicationPool      = 'MockPool'
                     Bindings             = @{Collection = @($MockWebBinding)}
                     EnabledProtocols     = 'http'
@@ -2449,6 +2479,7 @@ try
                     Name                 = 'MockName'
                     PhysicalPath         = 'C:\NonExistent'
                     State                = 'Started'
+                    ServerAutoStart      = $true
                     ApplicationPool      = 'MockPool'
                     Bindings             = @{Collection = @($MockWebBinding)}
                     EnabledProtocols     = 'http'
@@ -2480,6 +2511,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\NonExistent'
                 State                = 'Started'
+                ServerAutoStart      = $true
                 ApplicationPool      = 'MockPool'
                 Bindings             = @{Collection = @($MockWebBinding)}
                 EnabledProtocols     = 'http'
@@ -2551,6 +2583,7 @@ try
                 Name                 = 'MockName'
                 PhysicalPath         = 'C:\NonExistent'
                 State                = 'Started'
+                ServerAutoStart      = $true
                 ApplicationPool      = 'MockPool'
                 Bindings             = @{Collection = @($MockWebBinding)}
                 EnabledProtocols     = 'http'
@@ -3262,6 +3295,7 @@ try
                 Name               = 'MockName'
                 PhysicalPath       = 'C:\NonExistent'
                 State              = 'Started'
+                ServerAutoStart    = $true
                 ApplicationPool    = 'MockPool'
                 DefaultPage        = 'index.htm'
             }
