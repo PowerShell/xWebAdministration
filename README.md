@@ -234,6 +234,8 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ### xIisFeatureDelegation
 
+This resource manages the IIS configuration section locking (overrideMode) to control what configuration can be set in web.config.
+
 * **Filter**: Specifies the IIS configuration section to lock or unlock in this format: **/system.webserver/security/authentication/anonymousAuthentication**
 * **Path**: Specifies the configuration path. This can be either an IIS configuration path in the format computer machine/webroot/apphost, or the IIS module path in this format IIS:\sites\Default Web Site.
 * **OverrideMode**: Mode of that section { **Allow** | **Deny** }
@@ -266,7 +268,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * Changes to xWebAdministration
   * Moved file Codecov.yml that was added to the wrong path in previous release.
 * Updated **xWebSite** to include ability to manage custom logging fields
-* Breaking Change: Updated **xIisFeatureDelegation** to be able to manage any configuration section
+* BREAKING CHANGE: Updated **xIisFeatureDelegation** to be able to manage any configuration section
 
 ### 1.20.0.0
 
