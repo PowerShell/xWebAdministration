@@ -266,10 +266,10 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **[String] ScriptProcessor** _(Write)_: Specifies the script processor that runs for the module
 * **[String] Type** _(Write)_: Specifies the managed type of the new module. This parameter applies to managed modules only
 * **[String] ResourceType** _(Write)_: Specifies the resource type this handler runs. See [ResourceType](https://docs.microsoft.com/en-us/iis/configuration/system.webserver/handlers/add)
-* **[Boolean] AllowPathInfo** _(Write)_: Specifies whether the handler processes full  path information in a URI, 
-such as contoso/marketing/imageGallery.aspx. If the value is true, the 
-handler processes the full path, contoso/marketing/imageGallery. 
-If the value is false, the handler processes only the last section of 
+* **[Boolean] AllowPathInfo** _(Write)_: Specifies whether the handler processes full  path information in a URI,
+such as contoso/marketing/imageGallery.aspx. If the value is true, the
+handler processes the full path, contoso/marketing/imageGallery.
+If the value is false, the handler processes only the last section of
 the path, /imageGallery.
 * **[Int] ResponseBufferLimit** _(Write)_: Specifies the maximum size, in bytes, of the response buffer for a request handler runs
 
@@ -280,6 +280,9 @@ the path, /imageGallery.
 * Added **xWebApplicationHandler** resource for creating and modifying IIS Web Handlers. Fixes #337
 * Added **xWebApplicationHandler** integration tests
 * Added **xWebApplicationHandler** unit tests
+* Changes to xWebAdministration
+  * Moved file Codecov.yml that was added to the wrong path in previous release.
+* Updated **xWebSite** to include ability to manage custom logging fields
 
 ### 1.20.0.0
 
@@ -1061,7 +1064,7 @@ configuration Sample_EndToEndxWebAdministration
         {
             PSPath               = $Node.PSPath
             Name                 = 'ATest-WebHandler'
-            Path                 = '*'     
+            Path                 = '*'
             Verb                 = '*'
             Modules              = 'IsapiModule'
             RequireAccess        = 'None'
