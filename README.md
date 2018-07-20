@@ -316,6 +316,8 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 
 ### Unreleased
 
+* Remove duplication in MSFT_xWebsite.psm1. [Krzysztof Morcinek (@kmorcinek)](https://github.com/kmorcinek)
+
 ### 2.1.0.0
 
 * Added new resources **xWebConfigProperty** and **xWebConfigPropertyCollection** extending functionality provided by **xWebConfigKeyValue**, addresses #249.
