@@ -322,6 +322,7 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 * Added **WebApplicationHandler** integration tests
 * Added **WebApplicationHandler** unit tests
 * Deprecated xIISHandler resource. This resource will be removed in future release
+* Remove duplication in MSFT_xWebsite.psm1. [Krzysztof Morcinek (@kmorcinek)](https://github.com/kmorcinek)
 
 ### 2.0.0.0
 * Changes to xWebAdministration
