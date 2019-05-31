@@ -1,6 +1,6 @@
 # xWebAdministration
 
-The **xWebAdministration** module contains the **xIISModule**, **xIISLogging**, **xWebAppPool**, **xWebsite**, **xWebApplication**, **xWebVirtualDirectory**, **xSSLSettings**, **xWebConfigKeyValue**, **xWebConfigProperty**, **xWebConfigPropertyCollection** and **WebApplicationHandler** DSC resources for creating and configuring various IIS artifacts.
+The **xWebAdministration** module contains the **xIISModule**, **xIISLogging**, **xWebAppPool**, **xWebsite**, **xWebApplication**, **xSSLSettings**, **xWebConfigKeyValue**, **xWebConfigProperty**, **xWebConfigPropertyCollection**, **WebApplicationHandler** and **WebVirtualDirectory** DSC resources for creating and configuring various IIS artifacts.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
@@ -183,10 +183,10 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **ServiceAutoStartProvider**: Adds a AutostartProvider
 * **ApplicationType**: Adds a AutostartProvider ApplicationType
 * **AuthenticationInfo**: Website's authentication information in the form of an embedded instance of the **MSFT_xWebAuthenticationInformation** CIM class. **MSFT_xWebAuthenticationInformation** takes the following properties:
-    * **Anonymous**: The acceptable values for this property are: `$true`, `$false`
-    * **Basic**: The acceptable values for this property are: `$true`, `$false`
-    * **Digest**: The acceptable values for this property are: `$true`, `$false`
-    * **Windows**: The acceptable values for this property are: `$true`, `$false`
+  * **Anonymous**: The acceptable values for this property are: `$true`, `$false`
+  * **Basic**: The acceptable values for this property are: `$true`, `$false`
+  * **Digest**: The acceptable values for this property are: `$true`, `$false`
+  * **Windows**: The acceptable values for this property are: `$true`, `$false`
 * **LogPath**: The directory to be used for logfiles.
 * **LogFlags**: The W3C logging fields: The values that are allowed for this property are: `Date`,`Time`,`ClientIP`,`UserName`,`SiteName`,`ComputerName`,`ServerIP`,`Method`,`UriStem`,`UriQuery`,`HttpStatus`,`Win32Status`,`BytesSent`,`BytesRecv`,`TimeTaken`,`ServerPort`,`UserAgent`,`Cookie`,`Referer`,`ProtocolVersion`,`Host`,`HttpSubStatus`
 * **LogPeriod**: How often the log file should rollover. The values that are allowed for this property are: `Hourly`,`Daily`,`Weekly`,`Monthly`,`MaxSize`
@@ -211,10 +211,10 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **ServiceAutoStartProvider**: Adds a AutostartProvider
 * **ApplicationType**: Adds a AutostartProvider ApplicationType
 * **AuthenticationInformation**: Web Application's authentication information in the form of an array of embedded instances of the **MSFT_xWebApplicationAuthenticationInformation** CIM class. **MSFT_xWebApplicationAuthenticationInformation** take the following properties:
-    * **Anonymous**: The acceptable values for this property are: `$true`, `$false`
-    * **Basic**: The acceptable values for this property are: `$true`, `$false`
-    * **Digest**: The acceptable values for this property are: `$true`, `$false`
-    * **Windows**: The acceptable values for this property are: `$true`, `$false`
+  * **Anonymous**: The acceptable values for this property are: `$true`, `$false`
+  * **Basic**: The acceptable values for this property are: `$true`, `$false`
+  * **Digest**: The acceptable values for this property are: `$true`, `$false`
+  * **Windows**: The acceptable values for this property are: `$true`, `$false`
 * **SslFlags**: SslFlags for the application: The acceptable values for this property are: `''`, `Ssl`, `SslNegotiateCert`, `SslRequireCert`, `Ssl128`
 * **EnabledProtocols**: EnabledProtocols for the application. The acceptable values for this property are: `http`, `https`, `net.tcp`, `net.msmq`, `net.pipe`
 
@@ -237,13 +237,15 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 handler processes the full path, contoso/marketing/imageGallery. If the value is false, the handler processes only the last section of the path, /imageGallery.
 * **[UInt64] ResponseBufferLimit** _(Write)_: Specifies the maximum size, in bytes, of the response buffer for a request handler runs.
 
-### xWebVirtualDirectory
+### WebVirtualDirectory
 
-* **Website**: Name of website with which virtual directory is associated
-* **WebApplication**:  The name of the containing web application or an empty string for the containing website
-* **PhysicalPath**: The path to the files that compose the virtual directory
-* **Name**: The name of the virtual directory
+* **Site**: Name of website with which virtual directory is associated.
+* **Application**:  The name of the containing web application or an empty string for the containing website.
+* **PhysicalPath**: The path to the files that compose the virtual directory.
+* **Name**: The name of the virtual directory.
 * **Ensure**: Ensures if the virtual directory is **Present** or **Absent**.
+* **PhysicalPathAccessAccount**: Specific username used for access to physical path. *Note* In case of using SMB as a physical path and if target server doesn't share identity database with device/server hosting the share, local user account must be created with the same username/password used for the access, section 'More Information' [support.microsoft.com](https://support.microsoft.com/en-us/help/247099/access-denied-when-connecting-to-a-ftp-directory-that-uses-a-unc-path)
+* **PhysicalPathAccessPass**: Specifies password used for access to physical path.
 
 ### xWebConfigKeyValue (DEPRECATED)
 
@@ -320,7 +322,17 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 
 ### Unreleased
 
+* BREAKING CHANGE: Resource **xWebVirtualDirectory** renamed to **WebVirtualDirectory**.
+  * Parameter **Website** renamed to **Site** to comply with other resources and PowerShell command.
+  * Parameter **WebApplication** renamed to **Application** to comply with other resources and PowerShell command.
+  * New parameters added: **PhysicalPathAccessAccount** and **PhysicalPathAccessPass** which define access credential to physical path.
+  * Parameter **PhysicalPath** no longer required for Ensure = 'Absent' case.
+  * UNC path can be used as a PhysicalPath value [#94](https://github.com/PowerShell/xWebAdministration/issues/94)
+  * Removal command changed to `Remove-Item` to hide the confirmation errors [#366](https://github.com/PowerShell/xWebAdministration/issues/366)
+  * Examples added to include different scenarios.
+
 ### 2.6.0.0
+
 * Changed order of classes in schema.mof files to workaround [#423](https://github.com/PowerShell/xWebAdministration/issues/423)
 * Fix subject comparison multiple entries for helper function `Find-Certificate` that could not find the test
   helper function `Install-NewSelfSignedCertificateExScript`.
@@ -365,6 +377,7 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 * Deprecated xIISHandler resource. This resource will be removed in future release
 
 ### 2.0.0.0
+
 * Changes to xWebAdministration
   * Moved file Codecov.yml that was added to the wrong path in previous release.
 * Updated **xWebSite** to include ability to manage custom logging fields.
@@ -375,7 +388,6 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 * BREAKING CHANGE: Updated **xIisFeatureDelegation** to be able to manage any
   configuration section.
   [Reggie Gibson (@regedit32)](https://github.com/regedit32)
-
 
 ### 1.20.0.0
 
@@ -444,37 +456,37 @@ This resource manages the IIS configuration section locking (overrideMode) to co
   * Replaced 3 calls to Invoke-Expression with a call to a new helper function - Get-Property
 
 * **xWebsite** updates:
-    * Bugfix for #131 The site name should be passed in as argument for Test-AuthenticationInfo
-    * Improved **BindingInfo** validation: the **HostName** property is required for use with Server Name Indication (i.e., when the **SslFlags** property is set to `1` or `3`).
+  * Bugfix for #131 The site name should be passed in as argument for Test-AuthenticationInfo
+  * Improved **BindingInfo** validation: the **HostName** property is required for use with Server Name Indication (i.e., when the **SslFlags** property is set to `1` or `3`).
 * Adding conditional logic to install the test helper module from the gallery if the user downloaded the module from the gallery.
 * Added **xSSLSettings** integration tests
 * Added fixes to **xSSLSettings**. Corrected spelling and formatting in base resource and tests. Added misc comments. Added ValidateSet to bindings param.
 
 * Added **xIISLogging** resource which supports for the following options:
-    * LogPath
-    * LogFlags
-    * LogPeriod
-    * LogTruncateSize
-    * LoglocalTimeRollover
-    * LogFormat
+  * LogPath
+  * LogFlags
+  * LogPeriod
+  * LogTruncateSize
+  * LoglocalTimeRollover
+  * LogFormat
 * Added IIS Logging to **xWebsite** which support for the following options:
-    * LogPath
-    * LogFlags
-    * LogPeriod
-    * LogTruncateSize
-    * LoglocalTimeRollover
-    * LogFormat
+  * LogPath
+  * LogFlags
+  * LogPeriod
+  * LogTruncateSize
+  * LoglocalTimeRollover
+  * LogFormat
 
 * **xWebApplication** updates:
-    * xWebApplication integration tests updated
-    * Added fixes to **xWebApplication**. Formatted resources to DSC StyleGuideLines, fixed logging statements, fixed incorrect Get-TargetResource param block, fixed Test-SslFlags validation, fixed unit test mocking of Test-SslFlags, added Ssl128 option to SslFlags
-    * Added EnabledProtocols
-    * Fixed:
-      * Formatted resources to DSC StyleGuideLines
-        * Logging statements
-        * Incorrect Get-TargetResource param block
-        * Test-SslFlags validation
-        * Unit test mocking of Test-SslFlags
+  * xWebApplication integration tests updated
+  * Added fixes to **xWebApplication**. Formatted resources to DSC StyleGuideLines, fixed logging statements, fixed incorrect Get-TargetResource param block, fixed Test-SslFlags validation, fixed unit test mocking of Test-SslFlags, added Ssl128 option to SslFlags
+  * Added EnabledProtocols
+  * Fixed:
+    * Formatted resources to DSC StyleGuideLines
+      * Logging statements
+      * Incorrect Get-TargetResource param block
+      * Test-SslFlags validation
+      * Unit test mocking of Test-SslFlags
 
 ### 1.11.0.0
 
@@ -510,11 +522,11 @@ This resource manages the IIS configuration section locking (overrideMode) to co
 * Added Unit tests to IISFeatureDelegation, general script clean up
 * Refactored xIisHandle to load script variables once, added unit tests.
 * xWebsite updated:
-    * Added support for the following binding protocols: `msmq.formatname`, `net.msmq`, `net.pipe`, `net.tcp`.
-    * Added support for setting the `EnabledProtocols` property.
-    * Fixed an issue in bindings comparison which was causing bindings to be reassigned on every consistency check.
-    * Fixed an issue where binding conflict was not properly detected and handled. Stopped websites will not be checked for conflicting bindings anymore.
-    * The qualifier for the Protocol property of the MSFT_xWebBindingInformation CIM class was changed from Write to Required.
+  * Added support for the following binding protocols: `msmq.formatname`, `net.msmq`, `net.pipe`, `net.tcp`.
+  * Added support for setting the `EnabledProtocols` property.
+  * Fixed an issue in bindings comparison which was causing bindings to be reassigned on every consistency check.
+  * Fixed an issue where binding conflict was not properly detected and handled. Stopped websites will not be checked for conflicting bindings anymore.
+  * The qualifier for the Protocol property of the MSFT_xWebBindingInformation CIM class was changed from Write to Required.
 
 ### 1.8.0.0
 
@@ -1119,11 +1131,11 @@ configuration Sample_EndToEndxWebAdministration
         }
 
         #Create a new virtual Directory
-        xWebVirtualDirectory NewVirtualDir
+        WebVirtualDirectory NewVirtualDir
         {
             Name = $Node.WebVirtualDirectoryName
-            Website = $Node.WebSiteName
-            WebApplication =  $Node.WebApplicationName
+            Site = $Node.WebSiteName
+            Application =  $Node.WebApplicationName
             PhysicalPath = $Node.PhysicalPathVirtualDir
             Ensure = "Present"
             DependsOn = @("[xWebApplication]NewWebApplication","[File]NewVirtualDirectoryPath")
@@ -1137,7 +1149,7 @@ configuration Sample_EndToEndxWebAdministration
                             <configuration>
                             </configuration>"
                     Ensure = "Present"
-             DependsOn = @("[xWebVirtualDirectory]NewVirtualDir")
+             DependsOn = @("[WebVirtualDirectory]NewVirtualDir")
         }
 
         #Add an appSetting key1
