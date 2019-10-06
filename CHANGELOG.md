@@ -51,6 +51,9 @@
   - Moved MSFT_xIisMimeTypeMapping localization strings to strings.psd1 ([issue #465](https://github.com/PowerShell/xWebAdministration/issues/465)).
 - Changes to xWebVirtualDirectory
   - Moved MSFT_xWebVirtualDirectory localization strings to strings.psd1 ([issue #477](https://github.com/PowerShell/xWebAdministration/issues/477)).
+- Changes to xWebSiteDefaults
+  - BREAKING CHANGE: Changed `ApplyTo` key parameter to `IsSingleInstance` to
+  bring the resource into compliance with published best practices. ([issue #457](https://github.com/PowerShell/xWebAdministration/issues/457))
 
 ## 2.8.0.0
 
