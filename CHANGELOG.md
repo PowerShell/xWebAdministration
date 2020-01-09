@@ -19,6 +19,8 @@ For older change log history see the [historic changelog](HISTORIC_CHANGELOG.md)
 
 - xWebAdministration
   - Update GitVersion.yml with the correct regular expression.
+- xWebSite
+  - Fix an issue where changes to LogFlags would fail to apply.
 
 ## [3.1.0] - 2019-12-30
 
